@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <FrameLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.google.android.apps.muzei.render.GLTextureView
+            android:id="@+id/gl_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+        <TableLayout
+            android:id="@+id/hud_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right|center_vertical"
+            android:padding="8dp" />
+
+    </FrameLayout>
+
+    <ProgressBar
+        android:layout_centerInParent="true"
+        android:id="@+id/progress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+<!--
+    <Button
+        android:id="@+id/play"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="2dp"
+        android:textColor="@android:color/white"
+        android:background="#30000000"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:text="播放"/>
+
+    <Button
+        android:id="@+id/pause"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="2dp"
+        android:textColor="@android:color/white"
+        android:background="#30000000"
+        android:layout_toLeftOf="@+id/play"
+        android:layout_alignParentBottom="true"
+        android:text="暂停"/>-->
+</RelativeLayout>
