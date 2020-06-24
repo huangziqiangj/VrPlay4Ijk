@@ -2,6 +2,7 @@
 基于ijk与MD360Play封装的VR播放器，调用简单、逻辑清晰、兼容性好
 
 基本使用
+两种使用方案，第一种
 1、将arr包拷贝到项目中libs文件夹下
 2、在build.gradle中加入
 
@@ -37,18 +38,17 @@ VrPlay4Ijk vrPlay4Ijk = VrPlay4Ijk
 完成事件的传递
 
  //这三个事件一定要加上
+ 
     @Override
     protected void onResume() {
         super.onResume();
         vrPlay4Ijk.onResume();
     }
-
     @Override
     protected void onPause() {
         super.onPause();
         vrPlay4Ijk.onPause();
     }
-
     @Override
     protected void onDestroy() {
         super.onDestroy();
