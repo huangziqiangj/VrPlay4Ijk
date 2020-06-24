@@ -23,13 +23,17 @@ implementation(name: 'vrplay4ijk1.0-all', ext: 'aar')
 https://github.com/huangziqiangj/VrPlay4Iik/blob/master/demo/libs/vrplay4ijk-release.aar
 
 和第一种方案一样引入aar包后，加入ijk的依赖即可
-	implementation 'tv.danmaku.ijk.media:ijkplayer-exo:0.8.8'
+	
+dependencies {
+
+    implementation 'tv.danmaku.ijk.media:ijkplayer-exo:0.8.8'
     implementation 'tv.danmaku.ijk.media:ijkplayer-java:0.8.8'
     implementation 'tv.danmaku.ijk.media:ijkplayer-armv7a:0.8.8'
     implementation 'tv.danmaku.ijk.media:ijkplayer-armv5:0.8.8'
     implementation 'tv.danmaku.ijk.media:ijkplayer-arm64:0.8.8'
     implementation 'tv.danmaku.ijk.media:ijkplayer-x86:0.8.8'
     implementation 'tv.danmaku.ijk.media:ijkplayer-x86_64:0.8.8'
+}
 
 	
 完成包引入后即可使用
