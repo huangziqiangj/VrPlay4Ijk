@@ -131,8 +131,8 @@ dependencies {
                 
 改变播放的状态
 
-        //设置播放的各种模式，详细见选项见枚举对象PlayerModel
+        //设置播放的各种模式，详细选项见枚举对象PlayerModel
         vrPlay4Ijk.setPlayModel(PlayerModel.MOTION_TOUCH);
         
         
-有任何疑问可以看源码，有demo有注释
+有任何疑问可以看源码，有demo有注释，项目对您有用的话记得点star哟
