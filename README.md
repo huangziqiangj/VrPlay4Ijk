@@ -71,7 +71,6 @@ https://github.com/huangziqiangj/VrPlay4Iik/blob/master/demo/libs/vrplay4ijk-rel
 
 代码
 
-private VrPlay4Ijk vrPlay4Ijk;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -127,6 +126,7 @@ private VrPlay4Ijk vrPlay4Ijk;
 
                 
 改变播放的状态
+
         //设置播放的各种模式，详细见选项见枚举对象PlayerModel
         vrPlay4Ijk.setPlayModel(PlayerModel.MOTION_TOUCH);
         
