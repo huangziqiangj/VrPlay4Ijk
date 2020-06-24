@@ -4,8 +4,11 @@
 基本使用两种使用方案
 第一种方案，下载完整arr包，该arr包里面包含了对ijk的封装和依赖（推荐）
 https://github.com/huangziqiangj/VrPlay4Iik/blob/master/demo/libs/vrplay4ijk1.0-all.aar
+
 1、将arr包拷贝到项目中libs文件夹下
+
 2、在moudel的build.gradle的android节点中加入
+
 
  repositories {
         flatDir {
@@ -16,7 +19,9 @@ https://github.com/huangziqiangj/VrPlay4Iik/blob/master/demo/libs/vrplay4ijk1.0-
 implementation(name: 'vrplay4ijk1.0-all', ext: 'aar')
 
 第二种方案，下载只包含vr渲染的部分
+
 https://github.com/huangziqiangj/VrPlay4Iik/blob/master/demo/libs/vrplay4ijk-release.aar
+
 和第一种方案一样引入aar包后，加入ijk的依赖即可
 	implementation 'tv.danmaku.ijk.media:ijkplayer-exo:0.8.8'
     implementation 'tv.danmaku.ijk.media:ijkplayer-java:0.8.8'
