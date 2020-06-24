@@ -2,7 +2,7 @@
 基于ijk与MD360Play封装的VR播放器，调用简单、逻辑清晰、兼容性好
 
 基本使用两种使用方案
-第一种方案，下载完整arr包，该arr包里面包含了对ijk的封装和依赖（推荐）
+第一种方案，下载完整aar包，该aar包里面包含了对ijk的封装和依赖（推荐）
 https://github.com/huangziqiangj/VrPlay4Iik/blob/master/demo/libs/vrplay4ijk1.0-all.aar
 
 1、将arr包拷贝到项目中libs文件夹下
