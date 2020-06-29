@@ -11,13 +11,19 @@ https://github.com/huangziqiangj/VrPlay4Iik/blob/master/demo/libs/vrplay4ijk1.0-
 2、在moudel的build.gradle的android节点中加入
 
 
+
  repositories {
         flatDir {
             dirs 'libs'   
         }
     }
+    
+    
 在dependencies节点加入下面代码即可完成
+
+
 implementation(name: 'vrplay4ijk1.0-all', ext: 'aar')
+
 
 第二种方案，下载只包含vr渲染的部分
 
