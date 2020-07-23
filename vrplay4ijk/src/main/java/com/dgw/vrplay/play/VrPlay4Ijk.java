@@ -139,13 +139,24 @@ public class VrPlay4Ijk {
             case PAUSE://暂停
                 mMediaPlayerWrapper.pause();
                 break;
-            case STOP://暂停
+            case STOP://tingz
                 try {
                     mMediaPlayerWrapper.stop();
                 }catch (Exception e){
                     Log.e(this.getClass().getName(),"stop error",e);
                 }
                 break;
+            case REBROADCAST:
+                try {
+                    mMediaPlayerWrapper.stop();
+                    mMediaPlayerWrapper.getPlayer().reset();
+                }catch (Exception e){
+                    Log.e(this.getClass().getName(),"stop error",e);
+                }
+                mMediaPlayerWrapper.openRemoteFile(uri.toString());
+                mMediaPlayerWrapper.prepare();
+                break;
+
         }
     }
 

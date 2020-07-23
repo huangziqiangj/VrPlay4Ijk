@@ -47,3 +47,67 @@ dependencies {
     implementation 'tv.danmaku.ijk.media:ijkplayer-x86_64:0.8.8'*/
 }
 
+
+//实际其作用的部分
+//把所有依赖的 jar 包拷贝至 build/outputs/aar/libs
+task syncAllJars() {
+    // 将指定路径下的所有 jar 包，打包至被打包的路径下
+    def dir = new File('D:\\AndroidWorkspace\\vrplay\\vrplay4ijk\\libs')
+    files(dir.listFiles()).each { file ->
+        if (file.name.endsWith('.jar')) {
+            copy {
+                into buildDir.getPath() + "/outputs/aar/libs"
+                from file.absolutePath
+            }
+        }
+    }
+}
+
+// 把所有依赖的 aar 包中包含的 classes.jar
+// 都拷贝到 build/outputs/aar/libs下，并重命名以不被覆盖
+task syncAllAars(dependsOn:':vrplay4ijk:assemble') {
+    def jarName
+    def aarPath
+    def destDir = buildDir.getPath()+"/outputs/aar"
+    def dir = new File('D:\\AndroidWorkspace\\vrplay\\vrplay4ijk\\libs')
+    files(dir.listFiles()).each { file ->
+        aarPath = file.absolutePath
+
+        if (file.name.endsWith('.aar')) {
+            jarName = "libs/" + file.name.replace(".aar",".jar")
+            copy {
+                from zipTree(aarPath)
+                into destDir
+                include "**/*"
+                rename 'classes.jar', jarName
+            }
+        }
+    }
+}
+
+// 将多个 jar 包打包成一个 classes.jar
+task makeJar(type: Jar) {
+    archiveName = 'classes.jar'
+    def dir = new File(buildDir.getPath()+"/outputs/aar/libs")
+    files(dir.listFiles()).each { file ->
+
+        if (file.name.endsWith('.jar')) {
+            from (project.zipTree(file.absolutePath))
+        }
+    }
+    destinationDirectory = file(buildDir.getPath()+"/outputs/aar")
+}
+
+task fataar(dependsOn:[syncAllAars, syncAllJars, makeJar]) {
+}
+
+//生成最终 aar 包，libs 目录需要被排除
+task genAar(dependsOn:[fataar], type: Zip) {
+    def destDir = buildDir.getPath()+"/outputs/aar"
+    baseName "vrplay4ijk"
+    extension "aar"
+    version '1.0'
+    destinationDirectory = file('libs/')
+    from destDir
+    exclude "libs"
+}

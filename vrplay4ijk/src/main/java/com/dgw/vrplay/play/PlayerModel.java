@@ -19,5 +19,6 @@ public enum PlayerModel {
     CAMERA_LITTLE_PLANET_CANCEL,
     PLAY,
     PAUSE,
-    STOP
+    STOP,
+    REBROADCAST
 }

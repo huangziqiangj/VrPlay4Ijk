@@ -1,2 +1,3 @@
 include ':demo'
+include ':vrplay4ijk'
 rootProject.name = "vrplay"
