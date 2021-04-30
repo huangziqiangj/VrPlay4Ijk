@@ -5,10 +5,12 @@ import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.content.res.Configuration;
 import android.net.Uri;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Surface;
 import android.widget.TableLayout;
 import android.widget.Toast;
+
 import com.asha.vrlib.MD360Director;
 import com.asha.vrlib.MD360DirectorFactory;
 import com.asha.vrlib.MDDirectorCamUpdate;
@@ -17,8 +19,10 @@ import com.asha.vrlib.model.BarrelDistortionConfig;
 import com.asha.vrlib.model.MDPinchConfig;
 import com.dgw.vrplay.ijk.MediaPlayerWrapper;
 import com.google.android.apps.muzei.render.GLTextureView;
+
 import tv.danmaku.ijk.media.player.IMediaPlayer;
 import tv.danmaku.ijk.media.player.IjkMediaPlayer;
+
 import static android.animation.PropertyValuesHolder.ofFloat;
 import static com.asha.vrlib.MDVRLibrary.DISPLAY_MODE_NORMAL;
 import static com.asha.vrlib.MDVRLibrary.INTERACTIVE_MODE_MOTION;
@@ -34,6 +38,8 @@ public class VrPlay4Ijk {
     private StartListener startListener;
     private Activity context;
     private Uri uri;
+    private String path;
+
     private IjkMediaPlayer mMediaPlayer;
     private GLTextureView glTextureView;
     private TableLayout tableLayout;
@@ -70,6 +76,11 @@ public class VrPlay4Ijk {
 
     public VrPlay4Ijk uri(Uri uri) {
         this.uri = uri;
+        return this;
+    }
+
+    public VrPlay4Ijk path(String path) {
+        this.path = path;
         return this;
     }
 
@@ -142,18 +153,22 @@ public class VrPlay4Ijk {
             case STOP://tingz
                 try {
                     mMediaPlayerWrapper.stop();
-                }catch (Exception e){
-                    Log.e(this.getClass().getName(),"stop error",e);
+                } catch (Exception e) {
+                    Log.e(this.getClass().getName(), "stop error", e);
                 }
                 break;
             case REBROADCAST:
                 try {
                     mMediaPlayerWrapper.stop();
                     mMediaPlayerWrapper.getPlayer().reset();
-                }catch (Exception e){
-                    Log.e(this.getClass().getName(),"stop error",e);
+                } catch (Exception e) {
+                    Log.e(this.getClass().getName(), "stop error", e);
                 }
-                mMediaPlayerWrapper.openRemoteFile(uri.toString());
+                if (uri != null) {
+                    mMediaPlayerWrapper.openRemoteFile(context, uri);
+                } else {
+                    mMediaPlayerWrapper.openLocalFile(path);
+                }
                 mMediaPlayerWrapper.prepare();
                 break;
 
@@ -170,7 +185,7 @@ public class VrPlay4Ijk {
         mMediaPlayerWrapper.setPreparedListener(new IMediaPlayer.OnPreparedListener() {
             @Override
             public void onPrepared(IMediaPlayer mp) {
-                if(startListener!=null){
+                if (startListener != null) {
                     startListener.start();
                 }
                 if (mVRLibrary != null) {
@@ -186,9 +201,13 @@ public class VrPlay4Ijk {
             }
         });
         if (uri != null) {
-            mMediaPlayerWrapper.openRemoteFile(uri.toString());
+            mMediaPlayerWrapper.openRemoteFile(context, uri);
+            mMediaPlayerWrapper.prepare();
+        } else if (!TextUtils.isEmpty(path)) {
+            mMediaPlayerWrapper.openLocalFile(path);
             mMediaPlayerWrapper.prepare();
         }
+
 
     }
 

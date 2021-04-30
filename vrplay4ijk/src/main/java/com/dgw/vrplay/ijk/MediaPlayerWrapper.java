@@ -3,11 +3,15 @@ package com.dgw.vrplay.ijk;
 import android.content.Context;
 import android.content.res.AssetManager;
 import android.media.AudioManager;
+import android.net.Uri;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Surface;
 import android.widget.TableLayout;
 
+import java.io.File;
+import java.io.FileDescriptor;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -44,16 +48,16 @@ public class MediaPlayerWrapper implements IMediaPlayer.OnPreparedListener, IMed
     private long mSeekStartTime = 0;
     private long mSeekEndTime = 0;
 
-    public void init(Context context,IjkMediaPlayer ijkMediaPlayer) {
+    public void init(Context context, IjkMediaPlayer ijkMediaPlayer) {
         mStatus = STATUS_IDLE;
         if (mMediaPlayer == null) {
-            if(ijkMediaPlayer!=null){
-                mMediaPlayer=ijkMediaPlayer;
-            }else{
+            if (ijkMediaPlayer != null) {
+                mMediaPlayer = ijkMediaPlayer;
+            } else {
                 mMediaPlayer = new IjkMediaPlayer();
             }
             //如果用户未传入自己的播放器，那么就设置默认参数
-            if(ijkMediaPlayer==null){
+            if (ijkMediaPlayer == null) {
                 Settings mSettings = new Settings(context);
                 //是否开启硬件编码
                 if (mSettings.getUsingMediaCodec()) {
@@ -182,9 +186,18 @@ public class MediaPlayerWrapper implements IMediaPlayer.OnPreparedListener, IMed
         }
     }
 
-    public void openRemoteFile(String url) {
+    public void openRemoteFile(Context context, Uri uri) {
         try {
-            mMediaPlayer.setDataSource(url);
+            mMediaPlayer.setDataSource(context, uri);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void openLocalFile(String path) {
+        try {
+            FileInputStream fileInputStream = new FileInputStream(new File(path));
+            mMediaPlayer.setDataSource(fileInputStream.getFD());
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -268,7 +281,7 @@ public class MediaPlayerWrapper implements IMediaPlayer.OnPreparedListener, IMed
             mHudViewHolder.updateLoadCost(mPrepareEndTime - mPrepareStartTime);
         }
         mStatus = STATUS_PREPARED;
-        Log.e("===========","==========onPrepared======");
+        Log.e("===========", "==========onPrepared======");
         start();
         if (mPreparedListener != null) mPreparedListener.onPrepared(mp);
     }
